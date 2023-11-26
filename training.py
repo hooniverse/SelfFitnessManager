@@ -1,6 +1,7 @@
 import exercise as ex
 import cv2
 import mediapipe as mp
+import pushup
 
 class Training(ex.Exercise):
     def __init__(self, type, set, count_per_set, break_time):
@@ -8,6 +9,8 @@ class Training(ex.Exercise):
         self.set = set
         self.count_per_set = count_per_set
         self.break_time = break_time
+        if self.type == 0:
+            self.exercise_type = pushup.Pushup()
 
     def run(self):
         mp_drawing = mp.solutions.drawing_utils
@@ -31,7 +34,8 @@ class Training(ex.Exercise):
                 pose_landmarks = result.pose_landmarks
 
                 if pose_landmarks:
-                    count, status = self.pushUp_countUp(count, status, pose_landmarks)
+
+                    count, status = self.exercise_type.countUp(count, status, pose_landmarks)
                     mp_drawing.draw_landmarks(
                         image,
                         result.pose_landmarks,
