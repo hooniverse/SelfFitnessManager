@@ -1,5 +1,4 @@
-from count import Count
-class Pullup(Count):
+class Pullup:
     def __init__(self):
         return
     """
