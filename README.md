@@ -1,5 +1,6 @@
 # 🏋🏻 셀프 운동 체크 프로그램 SelfFitnessManager💪🏼
  
+<br>
 <p align="center">
 	
  <img src = "./logo1.png">
@@ -20,9 +21,24 @@
 <br>
 
 ## 👨‍👩‍👦 팀원 구성
-1. [이성훈][@hooniverse](https://github.com/hooniverse): 역할 및 담당 사항에 대한 간단한 설명
-2. [류현승][@hyuns22](https://github.com/hyuns22): 역할 및 담당 사항에 대한 간단한 설명
-3. [이가현][@leeghy](https://github.com/leeghy): 역할 및 담당 사항에 대한 간단한 설명
+
+|이성훈|류현승|이가현|
+|:---:|:---:|:---:|
+|201565|223324|223344|
+|[hooniverse](https://github.com/hooniverse)|[hyuns22](https://github.com/hyuns22)|[leeghy](https://github.com/leeghy)|
+|![](https://avatars.githubusercontent.com/u/121534585?v=4)|![](https://avatars.githubusercontent.com/u/115512607?v=4)|![](https://avatars.githubusercontent.com/u/115767150?v=4)|
+
+<br>
+
+### 이성훈
+- **역할 / 역할/ 역할**
+- 세부활동
+### 류현승
+- **역할/ 역할/ 역할**
+- 세부활동
+### 이가현
+- **역할/ 역할/ 역할**
+- 세부활동
 
 
 <br>
@@ -33,7 +49,12 @@
 <br>
 
 ## 설치 및 실행 방법
-
+cmd 창 접속
+1. pip install playsound
+2. pip install gtts
+3. pip install mediapipe
+4. pip install OpenCV
+5. pip install PySimpleGUI
 
 
 <br>
