@@ -1,11 +1,9 @@
 # 🏋🏻 셀프 운동 체크 프로그램 SelfFitnessManager💪🏼
  
-<p align="center">  
-![](./logo1.png)
+<p align="center">
+	
+ <img src = "./logo1.png">
 </p>
-- 
-- 
-- 
 
 <br>
 
