@@ -24,16 +24,8 @@ class Exercise:
     #         time.sleep(1)
     #     return True
 
-    def run(self):
-        return
 
-    def pushUp_countUp(self, count, status, pose_landmarks):
-        if pose_landmarks.landmark[12].y < pose_landmarks.landmark[14].y and status:
-            count += 1
-            status = False
-        elif pose_landmarks.landmark[12].y > pose_landmarks.landmark[14].y and not (status):
-            status = True
-        return count, status
+
 
 
 

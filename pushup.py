@@ -1,4 +1,5 @@
-class Pushup:
+from count import Count
+class Pushup(Count):
     def __init__(self):
        return
 
