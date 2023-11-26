@@ -1,5 +1,5 @@
 import interface
-# from training import Training
+from training import Training
 
 interface = interface.Interface() ##인터페이스 객체 생성
 #

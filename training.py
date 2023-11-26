@@ -13,6 +13,8 @@ class Training(ex.Exercise):
             self.exercise_type = pushup.Pushup()
 
     def run(self):
+        count = -1
+        status = True
         mp_drawing = mp.solutions.drawing_utils
         mp_pose = mp.solutions.pose
         cap = cv2.VideoCapture(0)
@@ -33,7 +35,7 @@ class Training(ex.Exercise):
                 pose_landmarks = result.pose_landmarks
 
                 if pose_landmarks:
-                    count, status = self.exercise_type.countUp(self.count, self.status, pose_landmarks)
+                    count, status = self.exercise_type.countUp(count, status, pose_landmarks)
                     mp_drawing.draw_landmarks(
                         image,
                         result.pose_landmarks,
