@@ -7,6 +7,13 @@ class Exercise:
         self.count = 0
         self.status = True
 
+    def speak(self, text):
+        tts = gTTS(text=text, lang='en')
+        filename = 'voice.mp3'
+        tts.save(filename)
+        playsound(filename)
+        return
+
 
 
 
