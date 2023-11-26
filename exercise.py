@@ -1,5 +1,5 @@
 from gtts import gTTS
-from playsoud import playsound
+from playsound import playsound
 import time
 from interface import time_show
 

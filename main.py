@@ -1,6 +1,6 @@
 import interface
 
-interface = Interface() ##인터페이스 객체 생성
+interface = interface.Interface() ##인터페이스 객체 생성
 
 user_input = interface.run() ##인터페이스 run함수 -- return으로 리스트
 #[training, 종목, set, set당 개수, 쉬는시간] / [test, 종목, 목표시간, 목표개수]
