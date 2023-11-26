@@ -1,5 +1,8 @@
 from gtts import gTTS
 from playsoud import playsound
+import time
+from interface import time_show
+
 
 class Exercise:
     def __init__(self, type):
@@ -14,6 +17,15 @@ class Exercise:
         playsound(filename)
         return
 
+    def time_count(self, minute, second):
+        second += minute*60
+        for i in second:
+            time_show(second-i)
+            time.sleep(1)
+        return True
+
+    def exercise(self):
+        return
 
 
 
