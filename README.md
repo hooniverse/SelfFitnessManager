@@ -1,7 +1,8 @@
 # 🏋🏻 셀프 운동 체크 프로그램 SelfFitnessManager💪🏼
  
-  대충 사진
-
+<p align="center">  
+![](./logo1.png)
+</p>
 - 
 - 
 - 
@@ -25,6 +26,12 @@
 2. [류현승][@hyuns22](https://github.com/hyuns22): 역할 및 담당 사항에 대한 간단한 설명
 3. [이가현][@leeghy](https://github.com/leeghy): 역할 및 담당 사항에 대한 간단한 설명
 
+
+<br>
+
+## 화면 흐름도
+
+	이미지 넣기
 <br>
 
 ## 설치 및 실행 방법
