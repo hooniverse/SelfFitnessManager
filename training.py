@@ -19,8 +19,7 @@ class Training(ex.Exercise):
 
         with mp_pose.Pose(min_detection_confidence=0.5,
                           min_tracking_confidence=0.5) as pose:
-            count = -1
-            status = True
+
             while cap.isOpened():
 
                 success, image = cap.read()
@@ -34,13 +33,11 @@ class Training(ex.Exercise):
                 pose_landmarks = result.pose_landmarks
 
                 if pose_landmarks:
-
-                    count, status = self.exercise_type.countUp(count, status, pose_landmarks)
+                    count, status = self.exercise_type.countUp(self.count, self.status, pose_landmarks)
                     mp_drawing.draw_landmarks(
                         image,
                         result.pose_landmarks,
-                        mp_pose.POSE_CONNECTIONS,
-                    )
+                        mp_pose.POSE_CONNECTIONS)
 
                 cv2.putText(image, text='count : {}'.format(count)
                             , org=(10, 30), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
