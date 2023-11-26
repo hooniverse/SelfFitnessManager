@@ -1,7 +1,7 @@
 from gtts import gTTS
 from playsound import playsound
 import time
-from interface import time_show
+# from interface import time_show
 
 
 class Exercise:
@@ -17,17 +17,23 @@ class Exercise:
         playsound(filename)
         return
 
-    def time_count(self, minute, second):
-        second += minute*60
-        for i in second:
-            time_show(second-i)
-            time.sleep(1)
-        return True
+    # def time_count(self, minute, second):
+    #     second += minute*60
+    #     for i in second:
+    #         time_show(second-i)
+    #         time.sleep(1)
+    #     return True
 
-    def exercise(self):
+    def run(self):
         return
 
-
+    def pushUp_countUp(self, count, status, pose_landmarks):
+        if pose_landmarks.landmark[12].y < pose_landmarks.landmark[14].y and status:
+            count += 1
+            status = False
+        elif pose_landmarks.landmark[12].y > pose_landmarks.landmark[14].y and not (status):
+            status = True
+        return count, status
 
 
 
