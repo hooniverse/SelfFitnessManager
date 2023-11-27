@@ -1,6 +1,7 @@
 import exercise as ex
 import cv2
 import mediapipe as mp
+import pullup
 import pushup
 
 class Training(ex.Exercise):
@@ -9,12 +10,15 @@ class Training(ex.Exercise):
         self.set = set
         self.count_per_set = count_per_set
         self.break_time = break_time
-        if self.type == 0:
+        if self.type == ['Push-Up']:
             self.exercise_type = pushup.Pushup()
+        # elif self.type == ['Pull-Up']:
+        #     self.exercise_type = pullup.Pullup()
 
     def run(self):
         count = -1
         status = True
+        set_count = 0
         mp_drawing = mp.solutions.drawing_utils
         mp_pose = mp.solutions.pose
         cap = cv2.VideoCapture(0)
@@ -41,7 +45,19 @@ class Training(ex.Exercise):
                         result.pose_landmarks,
                         mp_pose.POSE_CONNECTIONS)
 
-                cv2.putText(image, text='count : {}'.format(count)
+                if count >= int(self.count_per_set):
+                    set_count += 1
+                    count = 0
+                    print("{}셋트를 완료했습니다.".format(set_count))  ###음성으로
+                    self.time_count(int(self.break_time))
+
+
+                if set_count >= int(self.set):
+                    print("운동이 완료 되었습니다!") ###음성으로
+                    break
+
+                cv2.putText(image, text='count : {}/{}      set : {}/{}'.format(count, self.count_per_set,
+                                                                                set_count, self.set)
                             , org=(10, 30), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                             fontScale=1, color=(0, 0, 255), thickness=2)
 
