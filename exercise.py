@@ -6,7 +6,7 @@ import time
 
 class Exercise:
     def __init__(self, type):
-        self.type = type ##운동종목 정수로 판별
+        self.type = type
         self.count = -1
         self.status = True
 
@@ -17,12 +17,11 @@ class Exercise:
         playsound(filename)
         return
 
-    # def time_count(self, minute, second):
-    #     second += minute*60
-    #     for i in second:
-    #         time_show(second-i)
-    #         time.sleep(1)
-    #     return True
+    def time_count(self, second):
+        for i in range(second):
+            print(second-i)
+            time.sleep(1)
+        return True
 
 
 
