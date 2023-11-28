@@ -1,6 +1,8 @@
 from gtts import gTTS
 from playsound import playsound
 import time
+import os.path
+from os import path
 # from interface import time_show
 
 
@@ -12,8 +14,10 @@ class Exercise:
 
     def speak(self, text):
         tts = gTTS(text=text, lang='en')
-        filename = 'voice.mp3'
-        tts.save(filename)
+
+        filename = text+'.mp3'
+        if not(path.exists(filename)):
+            tts.save(filename)
         playsound(filename)
         return
 

@@ -45,16 +45,19 @@ class Training(ex.Exercise):
                         result.pose_landmarks,
                         mp_pose.POSE_CONNECTIONS)
 
+
+
                 if count >= int(self.count_per_set):
                     set_count += 1
                     count = 0
-                    print("{}셋트를 완료했습니다.".format(set_count))  ###음성으로
+                    if set_count >= int(self.set):
+                        self.speak('exercise complete!')  ###음성으로
+                        break
+                    self.speak('set complete!')  ###음성으로
                     self.time_count(int(self.break_time))
 
 
-                if set_count >= int(self.set):
-                    print("운동이 완료 되었습니다!") ###음성으로
-                    break
+
 
                 cv2.putText(image, text='count : {}/{}      set : {}/{}'.format(count, self.count_per_set,
                                                                                 set_count, self.set)
