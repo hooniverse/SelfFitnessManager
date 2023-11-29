@@ -1,6 +1,6 @@
 import cv2
 import mediapipe as mp
-from exercise import pullup, pushup
+from exercise import pullup, pushup, squat
 import method
 
 
@@ -12,8 +12,10 @@ class Training:
         self.break_time = break_time
         if self.type == ['Push-Up']:
             self.exercise_type = pushup.Pushup()
-        # elif self.type == ['Pull-Up']:
-        #     self.exercise_type = pullup.Pullup()
+        elif self.type == ['Pull-Up']:
+            self.exercise_type = pullup.Pullup()
+        elif self.type == ['Squat']:
+            self.exercise_type = squat.Squat()
 
     def run(self):
         count = -1
@@ -44,12 +46,6 @@ class Training:
                         image,
                         result.pose_landmarks,
                         mp_pose.POSE_CONNECTIONS)
-
-
-
-
-
-
 
                 cv2.putText(image, text='count : {}/{}      set : {}/{}'.format(count, self.count_per_set,
                                                                                 set_count, self.set)
