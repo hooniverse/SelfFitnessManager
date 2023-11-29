@@ -3,8 +3,8 @@ from playsound import playsound
 import time
 import os.path
 from os import path
-from CountDownInterface import CountDownInterface
-countdowninterface = CountDownInterface()
+from interface import CountDownInterface
+countdowninterface = CountDownInterface.CountDownInterface()
 def speak(text):
     tts = gTTS(text=text, lang='en')
 
