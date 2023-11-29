@@ -1,12 +1,12 @@
-import exercise as ex
 import cv2
 import mediapipe as mp
-import pullup
-import pushup
+from exercise import pullup, pushup
+import method
 
-class Training(ex.Exercise):
+
+class Training:
     def __init__(self, type, set, count_per_set, break_time):
-        super().__init__(type)
+        self.type = type
         self.set = set
         self.count_per_set = count_per_set
         self.break_time = break_time
@@ -47,14 +47,6 @@ class Training(ex.Exercise):
 
 
 
-                if count >= int(self.count_per_set):
-                    set_count += 1
-                    count = 0
-                    if set_count >= int(self.set):
-                        self.speak('exercise complete!')  ###음성으로
-                        break
-                    self.speak('set complete!')  ###음성으로
-                    self.time_count(int(self.break_time))
 
 
 
@@ -68,6 +60,16 @@ class Training(ex.Exercise):
 
                 if cv2.waitKey(1) == ord('q'):
                     break
+
+
+                if count >= int(self.count_per_set):
+                    set_count += 1
+                    count = 0
+                    if set_count >= int(self.set):
+                        method.speak('exercise complete!')  ###음성으로
+                        break
+                    method.speak('set complete!')  ###음성으로
+                    method.time_count(int(self.break_time))
 
         cap.release()
         cv2.destroyAllWindows()
