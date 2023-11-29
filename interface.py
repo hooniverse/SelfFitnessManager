@@ -1,6 +1,5 @@
 import PySimpleGUI as sg
 
-
 class Interface:
     sg.theme('DarkAmber')
 
@@ -18,7 +17,7 @@ class Interface:
         return window
 
     def training_page(self):
-        layout = [[sg.Text('운동 종목 선택'), sg.Listbox(['Pull-Up', 'Push-Up'], no_scrollbar=True, s=(15, 2), key='type')],
+        layout = [[sg.Text('운동 종목 선택'), sg.Listbox(['Push-Up', 'Pull-Up', 'Squat'], no_scrollbar=True, s=(15, 3), key='type')],
                   [sg.Text('세트 개수(자연수 입력)'), sg.Input(s=15, key='set')],
                   [sg.Text('세트 당 개수(자연수 입력)'), sg.Input(s=15, key='reps_per_set')],
                   [sg.Text('쉬는 시간(초 단위 입력)'), sg.Input(s=15, key='break_time')],
@@ -28,7 +27,7 @@ class Interface:
         return sg.Window('training_page', layout)
 
     def test_page(self):
-        layout = [[sg.Text('테스트 종목 선택'), sg.Listbox(['Pull-Up', 'Push-Up'], no_scrollbar=True, s=(15, 2), key='type')],
+        layout = [[sg.Text('테스트 종목 선택'), sg.Listbox(['Push-Up', 'Pull-Up', 'Squat'], no_scrollbar=True, s=(15, 3), key='type')],
                   [sg.Text('목표 시간(초 단위 입력)'), sg.Input(s=15, key='goal_time')],
                   [sg.Text('목표 개수(자연수 입력)'), sg.Input(s=15, key='goal_number')],
                   [sg.Column(layout=[[sg.Button('확인')]], justification='center')],
@@ -75,5 +74,4 @@ class Interface:
 
         window.close()
         return user_input
-
 

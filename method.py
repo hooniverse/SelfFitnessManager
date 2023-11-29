@@ -3,8 +3,8 @@ from playsound import playsound
 import time
 import os.path
 from os import path
-
-
+from CountDownInterface import CountDownInterface
+countdowninterface = CountDownInterface()
 def speak(text):
     tts = gTTS(text=text, lang='en')
 
@@ -16,7 +16,4 @@ def speak(text):
 
 
 def time_count(second):
-    for i in range(second):
-        print(second-i)
-        time.sleep(1)
-    return True
+    countdowninterface.countdown(second)
