@@ -2,13 +2,15 @@ import cv2
 import mediapipe as mp
 from exercise import pullup, pushup, squat
 import method
+import time
 
-class Training:
-    def __init__(self, type, set, count_per_set, break_time):
+
+class Test:
+    def __init__(self, type, goal_time, goal_number):
         self.type = type
-        self.set = set
-        self.count_per_set = count_per_set
-        self.break_time = break_time
+        self.goal_time = goal_time
+        self.goal_number = goal_number
+
         if self.type == ['Push-Up']:
             self.exercise_type = pushup.Pushup()
         elif self.type == ['Pull-Up']:
@@ -19,7 +21,6 @@ class Training:
     def run(self):
         count = -1
         status = True
-        set_count = 0
         mp_drawing = mp.solutions.drawing_utils
         mp_pose = mp.solutions.pose
         cap = cv2.VideoCapture(0)
@@ -27,8 +28,9 @@ class Training:
         with mp_pose.Pose(min_detection_confidence=0.5,
                           min_tracking_confidence=0.5) as pose:
 
-            while cap.isOpened():
+            start_time = time.time()
 
+            while cap.isOpened():
                 success, image = cap.read()
 
                 if not success:
@@ -46,8 +48,12 @@ class Training:
                         result.pose_landmarks,
                         mp_pose.POSE_CONNECTIONS)
 
-                cv2.putText(image, text='count : {}/{}      set : {}/{}'.format(count, self.count_per_set,
-                                                                                set_count, self.set)
+
+                elapsed_time = time.time() - start_time
+                remaining_time = max(0, int(int(self.goal_time) - elapsed_time))
+
+                cv2.putText(image, text='count : {}/{}     Remaining time : {}'
+                            .format(count, self.goal_number, int(remaining_time))
                             , org=(10, 30), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                             fontScale=1, color=(0, 0, 255), thickness=2)
 
@@ -56,16 +62,15 @@ class Training:
                 if cv2.waitKey(1) == ord('q'):
                     break
 
+                if count >= int(self.goal_number) and remaining_time <= 0:
+                    method.speak('test complete!')
+                    break
+                elif count >= int(self.goal_number) and not remaining_time <= 0:
+                    method.speak('test complete!')
+                    break
+                elif count < int(self.goal_number) and remaining_time <= 0:
+                    method.speak('test failed!')
+                    break
 
-                if count >= int(self.count_per_set):
-                    set_count += 1
-                    count = 0
-                    if set_count >= int(self.set):
-                        method.speak('exercise complete!')  ###음성으로
-                        break
-                    method.speak('set complete!')  ###음성으로
-                    method.time_count(int(self.break_time))
-
-        cap.release()
-        cv2.destroyAllWindows()
-
+            cap.release()
+            cv2.destroyAllWindows()
