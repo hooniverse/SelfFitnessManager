@@ -52,7 +52,7 @@ class Test:
                 elapsed_time = time.time() - start_time
                 remaining_time = max(0, int(int(self.goal_time) - elapsed_time))
 
-                cv2.putText(image, text='count : {}/{}     Remaining time : {}'
+                cv2.putText(image, text='count : {}/{}   Remaining time : {}'
                             .format(count, self.goal_number, int(remaining_time))
                             , org=(10, 30), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                             fontScale=1, color=(0, 0, 255), thickness=2)
