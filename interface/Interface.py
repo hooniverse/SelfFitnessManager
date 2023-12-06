@@ -1,16 +1,18 @@
 import PySimpleGUI as sg
+import datetime
+from graph import day_count
 
 class Interface:
     sg.theme('DarkAmber')
 
-
     def main_page(self):
         layout = [
-                  [sg.Graph((250, 280), (0, 0), (250, 280), key='logo')],
-                  [sg.Text('모드선택', font=("Arial Bold", 10, "bold")), sg.Radio('트레이닝', key="training", group_id=1),
-                   sg.Radio('테스트', key="test", group_id=1)],
-                  [sg.Column(layout=[[sg.Button('기록보기')]], justification='center'), sg.Text('', size=(5, 1)), sg.Button('확인')],
-                  ]
+            [sg.Graph((250, 280), (0, 0), (250, 280), key='logo')],
+            [sg.Text('모드선택', font=("Arial Bold", 10, "bold")), sg.Radio('트레이닝', key="training", group_id=1),
+             sg.Radio('테스트', key="test", group_id=1)],
+            [sg.Column(layout=[[sg.Button('기록보기')]], justification='center'), sg.Text('', size=(5, 1)),
+             sg.Button('확인')],
+        ]
 
         window = sg.Window('모드 선택', layout, finalize=True)
         window['logo'].draw_image(filename='logo1.png', location=(6.5, 270))
@@ -18,29 +20,37 @@ class Interface:
         return window
 
     def training_page(self):
-        layout = [[sg.Text('운동 종목 선택'), sg.Listbox(['Push-Up', 'Pull-Up', 'Squat'], no_scrollbar=True, s=(15, 3), key='type')],
+        layout = [[sg.Text('운동 종목 선택'),
+                   sg.Listbox(['Push-Up', 'Pull-Up', 'Squat'], no_scrollbar=True, s=(15, 3), key='type')],
                   [sg.Text('세트 개수(자연수 입력)'), sg.Input(s=15, key='set')],
                   [sg.Text('세트 당 개수(자연수 입력)'), sg.Input(s=15, key='reps_per_set')],
                   [sg.Text('쉬는 시간(초 단위 입력)'), sg.Input(s=15, key='break_time')],
-                  [sg.Column(layout=[[sg.Button('이전으로')]], justification='center'), sg.Text('', size=(7, 1)), sg.Button('확인')],
+                  [sg.Column(layout=[[sg.Button('이전으로')]], justification='center'), sg.Text('', size=(7, 1)),
+                   sg.Button('확인')],
                   ]
 
         return sg.Window('training_page', layout)
 
     def test_page(self):
-        layout = [[sg.Text('테스트 종목 선택'), sg.Listbox(['Push-Up', 'Pull-Up', 'Squat'], no_scrollbar=True, s=(15, 3), key='type')],
+        layout = [[sg.Text('테스트 종목 선택'),
+                   sg.Listbox(['Push-Up', 'Pull-Up', 'Squat'], no_scrollbar=True, s=(15, 3), key='type')],
                   [sg.Text('목표 시간(초 단위 입력)'), sg.Input(s=15, key='goal_time')],
                   [sg.Text('목표 개수(자연수 입력)'), sg.Input(s=15, key='goal_number')],
-                  [sg.Column(layout=[[sg.Button('이전으로')]], justification='center'), sg.Text('', size=(7, 1)), sg.Button('확인')],
+                  [sg.Column(layout=[[sg.Button('이전으로')]], justification='center'), sg.Text('', size=(7, 1)),
+                   sg.Button('확인')],
                   ]
 
         return sg.Window('test_page', layout)
 
     def report_page(self):
-        layout = [[sg.Button('이전으로')],
+        layout = [[sg.Text("날짜를 선택하세요:"), sg.InputText(key="date", size=(20, 2), enable_events=True),
+                   sg.CalendarButton("날짜 선택", target="date", format="%Y-%m-%d")],
+                  # [sg.Multiline(size=(70, 30), key="output", disabled=True)],
+                  [sg.Text("", size=(1, 3))],
+                  [sg.Text("", size=(33, 1)), sg.Button('이전으로')],
                   ]
 
-        return sg.Window('report_page', layout)
+        return sg.Window('report_page', size=(370, 150)).Layout(layout)
 
     def run(self):
         user_input = {}
@@ -96,11 +106,25 @@ class Interface:
                 window = self.report_page()
                 event, values = window.read()
 
-                if event == '이전으로':
-                    window.close()
-                    window = self.main_page()
-                    event, values = window.read()
+                if event == sg.WIN_CLOSED:
+                    break
+
+                while True:
+                    if event == '이전으로':
+                        window.close()
+                        window = self.main_page()
+                        event, values = window.read()
+                        break
+
+                    elif event == "date":
+                        selected_date_str = values["date"]
+                        try:
+                            selected_date = datetime.datetime.strptime(selected_date_str, "%Y-%m-%d").date()
+                            day_count.plot_exercise_counts("exercise_record.csv", selected_date)
+
+                            # window["output"].update(records)
+                        except ValueError:
+                            sg.popup_error("올바르지 않은 날짜 형식입니다. 날짜를 다시 입력하세요.")
 
         window.close()
         return user_input
-

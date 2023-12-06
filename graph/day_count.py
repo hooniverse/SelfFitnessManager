@@ -4,6 +4,7 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import cv2
 
 def plot_exercise_counts(file_path, selected_date):
     # CSV 파일을 읽어옵니다.
@@ -22,7 +23,7 @@ def plot_exercise_counts(file_path, selected_date):
     # 각 운동의 카운트를 계산합니다.
     exercise_counts = {}
     for exercise_type in filtered_data['exercise'].unique():
-        count = filtered_data[filtered_data['exercise'] == exercise_type]['Total Chin Up Count'].sum()
+        count = filtered_data[filtered_data['exercise'] == exercise_type]['Count'].sum()
         exercise_counts[exercise_type] = count
 
     # 막대 그래프를 그립니다.
@@ -30,16 +31,19 @@ def plot_exercise_counts(file_path, selected_date):
     exercise_values = list(exercise_counts.values())
 
     plt.bar(exercise_labels, exercise_values)
-    plt.xlabel('exercise jongryu')
+    plt.xlabel('exercise type')
     plt.ylabel('count')
     plt.title(f'{selected_date} exercise count')
     plt.show()
+
+    if cv2.waitKey(1) == ord('q'):
+        return
 
 # CSV 파일 경로를 적절히 수정하세요.
 file_path = 'exercise_record.csv'
 
 # 년월일을 입력받습니다.
-selected_date = input('조회할 날짜를 입력하세요 (YYYY-MM-DD): ')
+# selected_date = input('조회할 날짜를 입력하세요 (YYYY-MM-DD): ')
 
 # 막대 그래프를 그립니다.
-plot_exercise_counts(file_path, selected_date)
+# plot_exercise_counts(file_path, selected_date)
