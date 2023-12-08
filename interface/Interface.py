@@ -1,7 +1,6 @@
 import PySimpleGUI as sg
 import datetime
 from graph import day_count
-import cv2
 
 class Interface:
     sg.theme('DarkAmber')
@@ -43,7 +42,14 @@ class Interface:
 
         return sg.Window('test_page', layout)
 
-    def report_page(self):
+    def report_choose_page(self):
+        layout = [[sg.Button("트레이닝 기록 보기"), sg.Button("테스트 기록 보기")],
+                  [sg.Column(layout=[[sg.Button('이전으로')]], justification='right')],
+                  ]
+
+        return sg.Window('report_choose_page', layout)
+
+    def training_report_page(self):
         layout = [[sg.Text("날짜를 선택하세요:"), sg.InputText(key="date", size=(20, 2), enable_events=True),
                    sg.CalendarButton("날짜 선택", target="date", format="%Y-%m-%d")],
                   [sg.Image(key='output')],
@@ -51,7 +57,7 @@ class Interface:
                   [sg.Column(layout=[[sg.Button('이전으로')]], justification='right')],
                   ]
 
-        return sg.Window('report_page', size=(600, 600)).Layout(layout)
+        return sg.Window('training_report_page', size=(600, 600)).Layout(layout)
 
     def run(self):
         user_input = {}
@@ -103,32 +109,52 @@ class Interface:
 
             elif event == '기록보기':
                 window.close()
-
-                window = self.report_page()
+                window = self.report_choose_page()
 
                 while True:
                     event, values = window.read()
 
-                    if event == sg.WIN_CLOSED:
+                    if event == sg.WIN_CLOSED or event == 'Cancel':
                         break
 
-                    if event == '이전으로':
+                    if event == '트레이닝 기록 보기':
+                        window.close()
+                        window = self.training_report_page()
+                        event, values = window.read()
+
+                        while True:
+                            event, values = window.read()
+
+                            if event == sg.WIN_CLOSED:
+                                break
+
+                            if event == '이전으로':
+                                window.close()
+                                window = self.report_choose_page()
+                                event, values = window.read()
+                                break
+
+                            elif event == "date":
+                                selected_date_str = values["date"]
+                                try:
+                                    selected_date = datetime.datetime.strptime(selected_date_str, "%Y-%m-%d").date()
+
+                                    day_count.plot_exercise_counts("exercise_record.csv", selected_date)
+                                    path = f"graph_pictures\{selected_date}_exercise_count.png"
+                                    window["output"].update(filename=path)
+
+                                except ValueError:
+                                    sg.popup_error("올바르지 않은 날짜 형식입니다. 날짜를 다시 입력하세요.")
+
+
+                    elif event == '테스트 기록 보기':
+                        pass
+
+                    elif event == '이전으로':
                         window.close()
                         window = self.main_page()
-                        # event, values = window.read()
+                        event, values = window()
                         break
-
-                    elif event == "date":
-                        selected_date_str = values["date"]
-                        try:
-                            selected_date = datetime.datetime.strptime(selected_date_str, "%Y-%m-%d").date()
-
-                            day_count.plot_exercise_counts("exercise_record.csv", selected_date)
-                            path = f"graph_pictures\{selected_date}_exercise_count.png"
-                            window["output"].update(filename=path)
-
-                        except ValueError:
-                            sg.popup_error("올바르지 않은 날짜 형식입니다. 날짜를 다시 입력하세요.")
 
         window.close()
         return user_input
