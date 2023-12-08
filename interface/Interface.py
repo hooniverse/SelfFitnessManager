@@ -104,16 +104,17 @@ class Interface:
                 window.close()
 
                 window = self.report_page()
-                event, values = window.read()
-
-                if event == sg.WIN_CLOSED:
-                    break
 
                 while True:
+                    event, values = window.read()
+
+                    if event == sg.WIN_CLOSED:
+                        break
+
                     if event == '이전으로':
                         window.close()
                         window = self.main_page()
-                        event, values = window.read()
+                        # event, values = window.read()
                         break
 
                     elif event == "date":
@@ -121,8 +122,8 @@ class Interface:
                         try:
                             selected_date = datetime.datetime.strptime(selected_date_str, "%Y-%m-%d").date()
                             day_count.plot_exercise_counts("exercise_record.csv", selected_date)
-
                             # window["output"].update(records)
+
                         except ValueError:
                             sg.popup_error("올바르지 않은 날짜 형식입니다. 날짜를 다시 입력하세요.")
 
