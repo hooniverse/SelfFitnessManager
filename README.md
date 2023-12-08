@@ -45,7 +45,10 @@
 
 ## 화면 흐름도
 
-	이미지 넣기
+<p align="center">
+	
+ <img src = "./flow_chart.png">
+</p>	
 <br>
 
 ## 설치 및 실행 방법
