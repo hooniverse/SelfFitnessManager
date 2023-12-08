@@ -4,12 +4,14 @@ from exercise import pullup, pushup, squat
 import method
 import time
 from graph import write_csv
+import matplotlib.pyplot as plt
 
 class Test:
     def __init__(self, type, goal_time, goal_number):
         self.type = type
         self.goal_time = goal_time
         self.goal_number = goal_number
+
 
         if self.type == ['Push-Up']:
             self.exercise_type = pushup.Pushup()
@@ -24,6 +26,9 @@ class Test:
         mp_drawing = mp.solutions.drawing_utils
         mp_pose = mp.solutions.pose
         cap = cv2.VideoCapture(0)
+        count_list = [0] * (int(self.goal_time) // 10)
+        time_intervals_labels = ["{}~{}".format(i*10+1, i*10+10) for i in range(int(self.goal_time) // 10) ]
+
 
         with mp_pose.Pose(min_detection_confidence=0.5,
                           min_tracking_confidence=0.5) as pose:
@@ -74,6 +79,33 @@ class Test:
                     write_csv.write_csv(self.exercise_type, count)
                     method.speak('test failed!')
                     break
+                idx = int(elapsed_time)//10
+
+                ten_second_count = count
+                for i in range(idx):
+                    ten_second_count-=count_list[i]
+                count_list[idx] = ten_second_count
 
             cap.release()
             cv2.destroyAllWindows()
+
+        print(count_list)
+        print(time_intervals_labels)
+
+        # 시간대별 운동 횟수를 그래프로 나타냅니다.
+
+        plt.bar(time_intervals_labels, count_list, label='Chin Up')
+
+        # 목표 개수를 그래프에 추가합니다.
+        plt.axhline(y=self.goal_number, color='r', linestyle='--', label=f'Goal: {self.goal_number}')
+
+        # 총 카운트를 그래프에 추가합니다.
+        plt.bar(["Total Chin Up", "Goal Chin Up"],
+                [int(count), int(self.goal_number)],
+                color=['g', 'r'])
+
+        plt.xlabel('Time Intervals / Count Types')
+        plt.ylabel('Count')
+        plt.title('Time Intervals')
+        plt.legend()
+        plt.show()
