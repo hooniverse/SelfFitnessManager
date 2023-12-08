@@ -45,12 +45,12 @@ class Interface:
     def report_page(self):
         layout = [[sg.Text("날짜를 선택하세요:"), sg.InputText(key="date", size=(20, 2), enable_events=True),
                    sg.CalendarButton("날짜 선택", target="date", format="%Y-%m-%d")],
-                  # [sg.Multiline(size=(70, 30), key="output", disabled=True)],
-                  [sg.Text("", size=(1, 3))],
-                  [sg.Text("", size=(33, 1)), sg.Button('이전으로')],
+                  [sg.Multiline(size=(70, 30), key="output", disabled=True)],
+                  # [sg.Text("", size=(1, 3))],
+                  [sg.Column(layout=[[sg.Button('이전으로')]], justification='right')],
                   ]
 
-        return sg.Window('report_page', size=(370, 150)).Layout(layout)
+        return sg.Window('report_page', size=(500, 600)).Layout(layout)
 
     def run(self):
         user_input = {}
@@ -121,8 +121,8 @@ class Interface:
                         selected_date_str = values["date"]
                         try:
                             selected_date = datetime.datetime.strptime(selected_date_str, "%Y-%m-%d").date()
-                            day_count.plot_exercise_counts("exercise_record.csv", selected_date)
-                            # window["output"].update(records)
+                            records = day_count.plot_exercise_counts("exercise_record.csv", selected_date)
+                            window["output"].update(records)
 
                         except ValueError:
                             sg.popup_error("올바르지 않은 날짜 형식입니다. 날짜를 다시 입력하세요.")
