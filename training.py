@@ -70,6 +70,7 @@ class Training:
                         break
                     method.speak('set complete!')  ###음성으로
                     method.time_count(int(self.break_time))
+                    method.speak('set start!')  ###음성으로
 
         cap.release()
         cv2.destroyAllWindows()
