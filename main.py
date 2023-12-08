@@ -14,6 +14,7 @@ elif user_input['mode'] == 'test':
     exercise = Test(user_input['type'], user_input['goal_time'],user_input['goal_number'])#(목표시간, 목표개수)
 
 
+
 exercise.run() #미디어파이프 실행
 
 # interface.end() #운동이 종료되었다는 메세지
