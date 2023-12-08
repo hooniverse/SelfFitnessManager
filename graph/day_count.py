@@ -38,9 +38,3 @@ def plot_exercise_counts(file_path, selected_date):
 
 # CSV 파일 경로를 적절히 수정하세요.
 file_path = 'exercise_record.csv'
-
-# 년월일을 입력받습니다.
-# selected_date = input('조회할 날짜를 입력하세요 (YYYY-MM-DD): ')
-
-# 막대 그래프를 그립니다.
-# plot_exercise_counts(file_path, selected_date)
