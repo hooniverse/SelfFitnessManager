@@ -35,6 +35,6 @@ class CountDownInterface:
             self.window.refresh()
             time.sleep(1)
 
-        sg.popup("쉬는시간 종료", auto_close_duration=1, non_blocking=True)
+
         return True
 
