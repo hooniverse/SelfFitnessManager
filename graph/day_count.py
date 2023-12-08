@@ -30,12 +30,11 @@ def plot_exercise_counts(file_path, selected_date):
     exercise_values = list(exercise_counts.values())
 
     plt.bar(exercise_labels, exercise_values)
-    plt.xlabel('exercise jongryu')
+    plt.xlabel('exercise type')
     plt.ylabel('count')
     plt.title(f'{selected_date} exercise count')
     plt.show()
 
 
+# CSV 파일 경로를 적절히 수정하세요.
 file_path = 'exercise_record.csv'
-
-
