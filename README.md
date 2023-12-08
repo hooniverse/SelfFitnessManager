@@ -50,7 +50,7 @@
 
 ## 설치 및 실행 방법
 cmd 창 접속
-1. pip install playsound
+1. pip install playsound==1.2.2
 2. pip install gtts
 3. pip install mediapipe
 4. pip install OpenCV
