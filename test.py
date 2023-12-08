@@ -3,7 +3,7 @@ import mediapipe as mp
 from exercise import pullup, pushup, squat
 import method
 import time
-
+from graph import write_csv
 
 class Test:
     def __init__(self, type, goal_time, goal_number):
@@ -63,12 +63,15 @@ class Test:
                     break
 
                 if count >= int(self.goal_number) and remaining_time <= 0:
+                    write_csv.write_csv(self.exercise_type, count)
                     method.speak('test complete!')
                     break
                 elif count >= int(self.goal_number) and not remaining_time <= 0:
+                    write_csv.write_csv(self.exercise_type, count)
                     method.speak('test complete!')
                     break
                 elif count < int(self.goal_number) and remaining_time <= 0:
+                    write_csv.write_csv(self.exercise_type, count)
                     method.speak('test failed!')
                     break
 
