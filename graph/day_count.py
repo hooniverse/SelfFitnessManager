@@ -4,7 +4,6 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
-import cv2
 
 def plot_exercise_counts(file_path, selected_date):
     # CSV 파일을 읽어옵니다.
@@ -36,8 +35,6 @@ def plot_exercise_counts(file_path, selected_date):
     plt.title(f'{selected_date} exercise count')
     plt.show()
 
-    if cv2.waitKey(1) == ord('q'):
-        return
 
 # CSV 파일 경로를 적절히 수정하세요.
 file_path = 'exercise_record.csv'
