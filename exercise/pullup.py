@@ -1,6 +1,10 @@
 class Pullup:
     def __init__(self):
         return
+
+    def __str__(self):
+        return "Pull-Up"
+
     """
         턱걸이 카운트 함수
         손목(16)이 어깨(12)보다 아래로 내려가면 카운트

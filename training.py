@@ -2,6 +2,9 @@ import cv2
 import mediapipe as mp
 from exercise import pullup, pushup, squat
 import method
+import datetime
+from graph import write_csv
+
 
 class Training:
     def __init__(self, type, set, count_per_set, break_time):
@@ -57,7 +60,9 @@ class Training:
                     break
 
 
+
                 if count >= int(self.count_per_set):
+                    write_csv.write_csv(self.exercise_type, count)
                     set_count += 1
                     count = 0
                     if set_count >= int(self.set):

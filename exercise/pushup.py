@@ -3,6 +3,10 @@ class Pushup:
     def __init__(self):
        return
 
+    def __str__(self):
+        return "Push-Up"
+
+
     def countUp(self, count, status, pose_landmarks):
         if pose_landmarks.landmark[12].y < pose_landmarks.landmark[14].y and status:
             count += 1
