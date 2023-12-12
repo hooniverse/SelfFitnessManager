@@ -5,6 +5,8 @@ import method
 import time
 from graph import write_csv
 import matplotlib.pyplot as plt
+import os
+import datetime
 
 class Test:
     def __init__(self, type, goal_time, goal_number):
@@ -92,8 +94,15 @@ class Test:
         print(count_list)
         print(time_intervals_labels)
 
-        # 시간대별 운동 횟수를 그래프로 나타냅니다.
+        save_directory = "graph_pictures/test_graph"
+        if not os.path.exists(save_directory):
+            os.makedirs(save_directory)
 
+        current_date = datetime.datetime.now().strftime("%Y-%m-%d")
+        file_name = f"{current_date}_{self.type[0]}_test.png"
+        file_path = os.path.join(save_directory, file_name)
+
+        # 시간대별 운동 횟수를 그래프로 나타냅니다.
         bars = plt.bar(time_intervals_labels, count_list, label=f"{self.type[0]}")
 
         # 각 막대의 맨 위 가운데에 점 찍기
@@ -115,4 +124,6 @@ class Test:
 
         plt.yticks(range(0, int(self.goal_number) + 5, 5))
         plt.legend()
+
+        plt.savefig(file_path)
         plt.show()
