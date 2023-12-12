@@ -22,6 +22,7 @@ def test_graph(time_intervals_labels, count_list,exercise, count, goal_number):
         for bar in bars:
             height = bar.get_height()
             plt.plot(bar.get_x() + bar.get_width() / 2, height, 'ko')
+            plt.text(bar.get_x() + bar.get_width() / 2, height, str(int(height)), ha='center', va='bottom')
 
         # 그래프의 점들을 선으로 이어주기
         plt.plot(time_intervals_labels , count_list , marker='o', color='black')
@@ -30,6 +31,11 @@ def test_graph(time_intervals_labels, count_list,exercise, count, goal_number):
         plt.bar(["Total Count", "Goal Count"],
                 [int(count), int(goal_number)],
                 color=['g', 'r'])
+        # 각 Total Count와 Goal Count에도 숫자 표시
+        for i, value in enumerate([int(count), int(goal_number)]):
+                plt.text(i + len(count_list), value, str(value), ha='center', va='bottom')
+
+
 
         plt.xlabel("Time Intervals / Total / Goal")
         plt.ylabel('Count')

@@ -40,7 +40,9 @@ def plot_exercise_counts(file_path, selected_date):
     plt.xlabel('exercise type')
     plt.ylabel('count')
     plt.title(f'{selected_date} exercise count')
-    
+
+    for i, value in enumerate(exercise_values):
+        plt.text(i, value, str(value), ha='center', va='bottom')
 
     plt.savefig(output_path)
     plt.close()
