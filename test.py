@@ -94,18 +94,25 @@ class Test:
 
         # 시간대별 운동 횟수를 그래프로 나타냅니다.
 
-        plt.bar(time_intervals_labels, count_list, label='Chin Up')
+        bars = plt.bar(time_intervals_labels, count_list, label=f"{self.type[0]}")
 
-        # 목표 개수를 그래프에 추가합니다.
-        plt.axhline(y=self.goal_number, color='r', linestyle='--', label=f'Goal: {self.goal_number}')
+        # 각 막대의 맨 위 가운데에 점 찍기
+        for bar in bars:
+            height = bar.get_height()
+            plt.plot(bar.get_x() + bar.get_width() / 2, height, 'ko')
+
+        # 그래프의 점들을 선으로 이어주기
+        plt.plot(time_intervals_labels , count_list , marker='o', color='black')
 
         # 총 카운트를 그래프에 추가합니다.
-        plt.bar(["Total Chin Up", "Goal Chin Up"],
+        plt.bar(["Total Count", "Goal Count"],
                 [int(count), int(self.goal_number)],
                 color=['g', 'r'])
 
-        plt.xlabel('Time Intervals / Count Types')
+        plt.xlabel("Time Intervals / Total / Goal")
         plt.ylabel('Count')
-        plt.title('Time Intervals')
+        plt.title(f"{self.type[0]} test")
+
+        plt.yticks(range(0, int(self.goal_number) + 5, 5))
         plt.legend()
         plt.show()
