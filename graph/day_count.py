@@ -1,3 +1,8 @@
+"""
+일별 운동 기록을 운동 종목 별로 카운트 합을 그래프로 출력 및 저장
+운동 기록 보는 인터페이스에서 사용
+"""
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import os

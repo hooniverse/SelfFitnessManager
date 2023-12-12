@@ -1,7 +1,7 @@
-import cv2
-import mediapipe as mp
+"""
+모든 운동에 대해 날짜 및 시간, 운동 종목, 카운트를 저장하는 코드
+"""
 import datetime
-import time
 import csv
 import pandas as pd
 def write_csv(current_exercise, total_count):

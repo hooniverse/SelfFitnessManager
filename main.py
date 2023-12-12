@@ -1,7 +1,6 @@
 from interface import Interface
 from training import Training
 from test import Test
-
 interface = Interface.Interface() ##인터페이스 객체 생성
 #
 user_input = interface.run() ##인터페이스 run함수 -- return으로 리스트
