@@ -16,5 +16,5 @@ elif user_input['mode'] == 'test':
 
 exercise.run() #미디어파이프 실행
 
-# interface.end() #운동이 종료되었다는 메세지
+interface.end() #운동이 종료되었다는 메세지
 print("운동 종료")###인터페이스로
