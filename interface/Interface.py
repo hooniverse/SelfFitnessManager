@@ -158,3 +158,16 @@ class Interface:
 
         window.close()
         return user_input
+
+    def end(self):
+        layout = [[sg.Text("운동이 종료되었습니다.")],
+                  ]
+
+        window = sg.Window('end_page', layout)
+
+        while True:
+            event, values = window.read()
+
+            if event == sg.WIN_CLOSED:
+                break
+        window.close()
