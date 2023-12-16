@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 import datetime
 from graph import day_count
-
+from graph import test_day_show
 class Interface:
     sg.theme('DarkAmber')
 
@@ -178,6 +178,7 @@ class Interface:
                                     selected_date = datetime.datetime.strptime(selected_date_str, "%Y-%m-%d").date()
 
                                     # day_count.plot_exercise_counts("exercise_record.csv", selected_date)
+                                    test_day_show.merge_images(selected_date)
                                     path = f"graph_pictures\\test_graph\\{selected_date}_Merged_Image.png"
                                     window["output_test"].update(filename=path)
 

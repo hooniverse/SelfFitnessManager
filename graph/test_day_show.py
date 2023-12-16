@@ -1,12 +1,12 @@
 """
-테스트 기록 보기에서 원하는 날의 테스트기록을 opencv로 결합하여 다 출력
+테스트 기록 보기에서 원하는 날의 테스트기록을 opencv로 결합함
+출력은 하지않고 저장만하게 둠
 """
 import cv2
 import os
 
 
-def merge_images():
-    current_date = input("날짜를 입력하세요 (YYYY-MM-DD): ")
+def merge_images(current_date):
 
     image1_path = f'graph_pictures/test_graph/{current_date}_Pull-Up_test.png'
     image2_path = f'graph_pictures/test_graph/{current_date}_Push-Up_test.png'
@@ -35,10 +35,7 @@ def merge_images():
 
     merged_image = cv2.hconcat(resized_images)
 
-    cv2.imshow('Merged Images', merged_image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
     cv2.imwrite(output_path, merged_image)
 
-
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
