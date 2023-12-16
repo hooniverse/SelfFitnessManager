@@ -31,14 +31,16 @@
 <br>
 
 ### 이성훈
-- **역할 / 역할/ 역할**
-- 세부활동
+- 운동 기록 및 그래프 관리
+-  Git 관리
+- training 모드 중 pull-up
 ### 류현승
-- **역할/ 역할/ 역할**
-- 세부활동
+- main.py
+- Training 모드 push-up,squat
+- speak 함
 ### 이가현
-- **역할/ 역할/ 역할**
-- 세부활동
+- GUI(Graphic User Interface) 
+- Test 모드
 
 
 <br>
@@ -52,14 +54,17 @@
 <br>
 
 ## 설치 및 실행 방법
-cmd 창 접속
+cmd 창 접속 후
 1. pip install playsound==1.2.2
 2. pip install gtts
 3. pip install mediapipe
 4. pip install OpenCV
 5. pip install PySimpleGUI
+6. pip install matplotlib
+7. pip install numpy
+8. pip install pandas
 
-
+main.py 실행
 <br>
 
 ## 라이센스
