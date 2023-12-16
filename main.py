@@ -1,4 +1,4 @@
-from interface import Interface
+import Interface
 from training import Training
 from test import Test
 interface = Interface.Interface() ##인터페이스 객체 생성

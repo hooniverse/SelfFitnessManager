@@ -53,11 +53,19 @@ class Interface:
         layout = [[sg.Text("날짜를 선택하세요:"), sg.InputText(key="date", size=(20, 2), enable_events=True),
                    sg.CalendarButton("날짜 선택", target="date", format="%Y-%m-%d")],
                   [sg.Image(key='output')],
-                  # [sg.Text("", size=(1, 3))],
                   [sg.Column(layout=[[sg.Button('이전으로')]], justification='right')],
                   ]
 
         return sg.Window('training_report_page', size=(600, 600)).Layout(layout)
+
+    def test_report_page(self):
+        layout = [[sg.Text("날짜를 선택하세요:"), sg.InputText(key="date", size=(20, 2), enable_events=True),
+                   sg.CalendarButton("날짜 선택", target="date", format="%Y-%m-%d")],
+                  [sg.Image(key='output_test')],
+                  [sg.Column(layout=[[sg.Button('이전으로')]], justification='right')],
+                  ]
+
+        return sg.Window('test_report_page', size=(1800, 500), location=(0, 0)).Layout(layout)
 
     def run(self):
         user_input = {}
@@ -148,7 +156,33 @@ class Interface:
 
 
                     elif event == '테스트 기록 보기':
-                        pass
+                        window.close()
+                        window = self.test_report_page()
+                        event, values = window.read()
+
+                        while True:
+                            event, values = window.read()
+
+                            if event == sg.WIN_CLOSED:
+                                break
+
+                            if event == '이전으로':
+                                window.close()
+                                window = self.report_choose_page()
+                                event, values = window.read()
+                                break
+
+                            elif event == "date":
+                                selected_date_str = values["date"]
+                                try:
+                                    selected_date = datetime.datetime.strptime(selected_date_str, "%Y-%m-%d").date()
+
+                                    # day_count.plot_exercise_counts("exercise_record.csv", selected_date)
+                                    path = f"graph_pictures\\test_graph\\{selected_date}_Merged_Image.png"
+                                    window["output_test"].update(filename=path)
+
+                                except ValueError:
+                                    sg.popup_error("올바르지 않은 날짜 형식입니다. 날짜를 다시 입력하세요.")
 
                     elif event == '이전으로':
                         window.close()
@@ -160,7 +194,7 @@ class Interface:
         return user_input
 
     def end(self):
-        layout = [[sg.Text("운동이 종료되었습니다.")],
+        layout = [[sg.Text("운동이 종료되었습니다.", font=("Arial Bold", 13, "bold"))],
                   ]
 
         window = sg.Window('end_page', layout)
