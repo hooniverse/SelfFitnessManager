@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 import datetime
+import os
 from graph import day_count
 from graph import test_day_show
 class Interface:
@@ -149,7 +150,13 @@ class Interface:
 
                                     day_count.plot_exercise_counts("exercise_record.csv", selected_date)
                                     path = f"graph_pictures\{selected_date}_exercise_count.png"
-                                    window["output"].update(filename=path)
+
+                                    if os.path.exists(path):
+                                        window["output"].update(filename=path)
+                                    else:
+                                        # 대체할 경로 또는 이미지 설정
+                                        alternative_path = "do_not_exercise.png"
+                                        window["output"].update(filename=alternative_path)
 
                                 except ValueError:
                                     sg.popup_error("올바르지 않은 날짜 형식입니다. 날짜를 다시 입력하세요.")
@@ -180,8 +187,12 @@ class Interface:
                                     # day_count.plot_exercise_counts("exercise_record.csv", selected_date)
                                     test_day_show.merge_images(selected_date)
                                     path = f"graph_pictures\\test_graph\\{selected_date}_Merged_Image.png"
-                                    window["output_test"].update(filename=path)
-
+                                    if os.path.exists(path):
+                                        window["output_test"].update(filename=path)
+                                    else:
+                                        # 대체할 경로 또는 이미지 설정
+                                        alternative_path = "do_not_exercise.png"
+                                        window["output_test"].update(filename=alternative_path)
                                 except ValueError:
                                     sg.popup_error("올바르지 않은 날짜 형식입니다. 날짜를 다시 입력하세요.")
 
