@@ -92,7 +92,6 @@ class Test:
             cap.release()
             cv2.destroyAllWindows()
 
-        print(count_list)
-        print(time_intervals_labels)
+
 
         test_graph.test_graph(time_intervals_labels, count_list,self.type[0], count, self.goal_number)
