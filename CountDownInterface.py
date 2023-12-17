@@ -9,7 +9,7 @@ class CountDownInterface:
 
     def countdown(self, duration):
         layout = [
-            [sg.Text("", key="second", font=('Helvetica', 200), justification='center', size=(10,1))],
+            [sg.Text("", key="second", font=('Helvetica', 200), justification='center', size=(10, 1))],
         ]
 
         window_size = (400, 300)
@@ -35,6 +35,4 @@ class CountDownInterface:
             self.window.refresh()
             time.sleep(1)
 
-
         return True
-
